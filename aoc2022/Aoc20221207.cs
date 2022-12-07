@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace aoc2022;
+﻿namespace aoc2022;
 
 public class Aoc20221207 : AocBase
 {
-    private const int DiskSpace = 70_000_000;
-    private const int UpdateSize = 30_000_000;
-
     public FileSystemItem CurrentFsi { get; private set; }
 
     public List<ConsoleItem> ConsoleItems { get; }
@@ -35,7 +26,6 @@ public class Aoc20221207 : AocBase
             ConsoleItems.Add(new ConsoleItem(inputRow));
         }
 
-
         var root = new FileSystemItem()
             {
                 Name = "/", 
@@ -52,29 +42,18 @@ public class Aoc20221207 : AocBase
         {
             if (consoleItem.IsCommand)
             {
-                if (consoleItem.CommandName.Equals("cd"))
-                {
-                    if (consoleItem.CommandTarget.Equals("/"))
-                    {
-                        CurrentFsi = FileSystemItems.First();
-                    }
-                    else
-                    {
-                        CurrentFsi = consoleItem.CommandTarget.Equals("..")
-                            ? CurrentFsi.Parent
-                            : CurrentFsi.Children.Single(c => c.Name.Equals(consoleItem.CommandTarget));
-                    }
-                }
+                if (!consoleItem.CommandName.Equals("cd")) { continue; }
 
-                // ls
-                continue;
+                CurrentFsi = consoleItem.CommandTarget.Equals("/")
+                    ? FileSystemItems.First()
+                    : consoleItem.CommandTarget.Equals("..")
+                        ? CurrentFsi.Parent
+                        : CurrentFsi.Children.Single(c => c.Name.Equals(consoleItem.CommandTarget));
             }
 
             if (consoleItem.IsDir 
                 && !consoleItem.Text.Equals("/"))
             {
-                if (CurrentFsi.Children.Any(f => f.Name.Equals(consoleItem.Text.Split(' ')[1]))) { continue; }
-
                 var newDir = new FileSystemItem()
                 {
                     Children = new List<FileSystemItem>(),
@@ -87,8 +66,7 @@ public class Aoc20221207 : AocBase
                 FileSystemItems.Add(newDir);
                 CurrentFsi.Children.Add(newDir);
             }
-            else if (consoleItem.IsFile
-                     && !CurrentFsi.Children.Any(c => c.Name.Equals(consoleItem.Text.Split(' ')[1])))
+            else if (consoleItem.IsFile)
             {
                 var newFile = new FileSystemItem()
                 {
@@ -107,16 +85,24 @@ public class Aoc20221207 : AocBase
 
     public int GetDiretoryToDeleteSize()
     {
-        var unusedSize = DiskSpace - FileSystemItems[0].GetSizeRecursively();
-        var requiredSize = UpdateSize - unusedSize;
+        const int diskSpace = 70_000_000;
+        const int updateSize = 30_000_000;
 
-        return FileSystemItems.Where(f => f.GetSizeRecursively() >= requiredSize).Select(f => f.GetSizeRecursively()).Min();
+        var unusedSize = diskSpace - FileSystemItems[0].GetDirectorySizeRecursively();
+        var requiredSize = updateSize - unusedSize;
+
+        return FileSystemItems.Where(f => f.GetDirectorySizeRecursively() >= requiredSize).Select(f => f.GetDirectorySizeRecursively()).Min();
     }
 }
 
 
 public class ConsoleItem
 {
+    public ConsoleItem(string consoleLine)
+    {
+        Text = consoleLine;
+    }
+
     public string Text { get; }
 
     public bool IsCommand => Text.StartsWith('$');
@@ -124,11 +110,6 @@ public class ConsoleItem
     public bool IsDir => Text.Equals("/") || Text.StartsWith("dir");
 
     public bool IsFile => !IsCommand && !IsDir;
-
-    public ConsoleItem(string consoleLine)
-    {
-        Text = consoleLine;
-    }
 
     public string CommandName => Text.Split(' ')[1];
 
@@ -147,7 +128,7 @@ public class FileSystemItem
 
     public List<FileSystemItem> Children;
 
-    public int GetSizeRecursively()
+    public int GetDirectorySizeRecursively()
     {
         if (IsFile)
         {
@@ -164,7 +145,7 @@ public class FileSystemItem
             }
             else
             {
-                totalSize += child.GetSizeRecursively();
+                totalSize += child.GetDirectorySizeRecursively();
             }
         }
 

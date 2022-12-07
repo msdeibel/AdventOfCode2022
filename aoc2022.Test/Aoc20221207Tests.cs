@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace aoc2022.Test;
+﻿namespace aoc2022.Test;
 
 public class Aoc20221207Tests
 {
@@ -67,10 +65,10 @@ public class Aoc20221207Tests
     {
         var aoc20221207 = new Aoc20221207(Example1Input());
 
-        Assert.Equal(584, aoc20221207.FileSystemItems.First(f => f.Name.Equals("e")).GetSizeRecursively());
-        Assert.Equal(94853, aoc20221207.FileSystemItems.First(f => f.Name.Equals("a")).GetSizeRecursively());
-        Assert.Equal(24933642, aoc20221207.FileSystemItems.First(f => f.Name.Equals("d")).GetSizeRecursively());
-        Assert.Equal(48381165, aoc20221207.FileSystemItems.First(f => f.Name.Equals("/")).GetSizeRecursively());
+        Assert.Equal(584, aoc20221207.FileSystemItems.First(f => f.Name.Equals("e")).GetDirectorySizeRecursively());
+        Assert.Equal(94853, aoc20221207.FileSystemItems.First(f => f.Name.Equals("a")).GetDirectorySizeRecursively());
+        Assert.Equal(24933642, aoc20221207.FileSystemItems.First(f => f.Name.Equals("d")).GetDirectorySizeRecursively());
+        Assert.Equal(48381165, aoc20221207.FileSystemItems.First(f => f.Name.Equals("/")).GetDirectorySizeRecursively());
     }
 
     [Fact]
@@ -79,19 +77,19 @@ public class Aoc20221207Tests
         var aoc20221207 = new Aoc20221207(Example1Input());
 
         Assert.Equal(95437, aoc20221207.FileSystemItems
-            .Where(f => f.GetSizeRecursively() < 100_000)
-            .Select(f => f.GetSizeRecursively())
+            .Where(f => f.GetDirectorySizeRecursively() < 100_000)
+            .Select(f => f.GetDirectorySizeRecursively())
             .Sum());
     }
 
     [Fact]
-    public void Task1Input()
+    public void Task1()
     {
         var aoc20221207 = new Aoc20221207(TaskInput());
 
         Assert.Equal(1243729, aoc20221207.FileSystemItems
-            .Where(f => f.GetSizeRecursively() < 100_000)
-            .Select(f => f.GetSizeRecursively())
+            .Where(f => f.GetDirectorySizeRecursively() < 100_000)
+            .Select(f => f.GetDirectorySizeRecursively())
             .Sum());
     }
 
@@ -129,11 +127,6 @@ $ ls
 5626152 d.ext
 7214296 k";
     }
-
-    //private string Example2Input()
-    //{
-    //    return @"";
-    //}
 
     private string TaskInput()
     {
