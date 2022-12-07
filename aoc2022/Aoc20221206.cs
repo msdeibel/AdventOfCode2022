@@ -10,9 +10,8 @@ public class Aoc20221206 : AocBase
     public int MessageMarkerValue => GetMarkerValue(MessageMarkerLength);
 
     public Aoc20221206(string rawInput)
-    {
-        InputRows = SplitInputString(rawInput);
-    }
+    :base(rawInput)
+    { }
 
     private int GetMarkerValue(int markerLength)
     {

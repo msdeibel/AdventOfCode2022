@@ -30,10 +30,9 @@ public class Aoc20221205 : AocBase
 
 
     public Aoc20221205(string rawInput)
+        : base(rawInput)
     {
         _stacks = Array.Empty<Stack<string>>();
-
-        InputRows = SplitInputString(rawInput).ToArray();
 
         _separatorLineIndex = SeparatorLineIndex();
 

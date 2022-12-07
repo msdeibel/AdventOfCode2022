@@ -8,9 +8,8 @@ public class Aoc20221204 : AocBase
     public IImmutableList<SectionSet> Sections => _sections.ToImmutableList();
 
     public Aoc20221204(string rawInput)
+        : base(rawInput)
     {
-
-        InputRows = SplitInputString(rawInput);
         _sections = new List<SectionSet>(InputRows.Count());
 
         foreach (var inputRow in InputRows)

@@ -1,6 +1,6 @@
 ﻿namespace aoc2022;
 
-public class Aoc20221202
+public class Aoc20221202 : AocBase
 {
     private readonly Dictionary<char, Shape> _charToShapeScore = new()
     {
@@ -33,13 +33,12 @@ public class Aoc20221202
     public IReadOnlyList<int> Results => _results;
 
     public Aoc20221202(string rawInput)
+        :base(rawInput)
     {
         _rounds = new List<(char, char)>();
         _results = new List<int>();
 
-        var rows = rawInput.Split("\r\n");
-
-        foreach (var row in rows.Where(r => !string.IsNullOrWhiteSpace(r)))
+        foreach (var row in InputRows.Where(r => !string.IsNullOrWhiteSpace(r)))
         {
             _rounds.Add((row.First(), row.Last()));
         }
