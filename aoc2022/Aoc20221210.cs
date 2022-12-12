@@ -1,8 +1,15 @@
-﻿namespace aoc2022;
+﻿using System.Collections.Immutable;
+
+namespace aoc2022;
 
 public class Aoc20221210 : AocBase
 {
     public int RegisterX { get; }
+
+    private IList<char> _crt { get; }
+
+    public IReadOnlyList<char> CRT => _crt.ToImmutableList();
+
 
     private readonly Dictionary<int, int> _cycle2RegisterValue;
 
@@ -12,10 +19,10 @@ public class Aoc20221210 : AocBase
         : base(rawInput)
     {
         _cycle2RegisterValue = new Dictionary<int, int>();
+        _crt = new List<char>();
         RegisterX = 1;
 
         var q = new Queue<Operation>();
-        //q.Enqueue(new Operation("noop"));
 
         var cycle = 0;
         var isAdding = false;
@@ -23,11 +30,19 @@ public class Aoc20221210 : AocBase
 
         int instructionPointer = 0;
 
+        int spritePosition = 1;
+
         do
         {
             cycle++;
 
             _cycle2RegisterValue[cycle] = RegisterX * cycle;
+
+            var spriteRange = Enumerable.Range(spritePosition-1, 3);
+
+            _crt.Add(spriteRange.Contains((cycle - 1) % 40)
+                ? '#'
+                : '.');
 
             if (!isAdding)
             {
@@ -46,6 +61,9 @@ public class Aoc20221210 : AocBase
                 RegisterX += op.Value;
                 isAdding = false;
             }
+
+            spritePosition = RegisterX;
+
         } while (instructionPointer < InputRows.Count());
     }
 }

@@ -1,7 +1,17 @@
-﻿namespace aoc2022.Test;
+﻿using Microsoft.VisualStudio.TestPlatform.Utilities;
+
+using Xunit.Abstractions;
+
+namespace aoc2022.Test;
 
 public class Aoc20221210Tests
 {
+    private readonly ITestOutputHelper output;
+
+    public Aoc20221210Tests(ITestOutputHelper output)
+    {
+        this.output = output;
+    }
 
     [Fact]
     public void ExampleItemsDetected()
@@ -56,7 +66,45 @@ addx -5");
         Assert.Equal(14760, total);
     }
 
-    private string Example1Input()
+    [Fact]
+    public void FiveCyclesWithCrt()
+    {
+        var aoc20221210 = new Aoc20221210(Example1Input());
+
+        Assert.Equal(new List<char>(){'#','#', '.','.', '#', '#', '.', '.', '#', '#', '.', '.', '#', '#', '.', '.', '#', '#', '.', '.', '#', '#', '.', '.', '#', '#', '.', '.', '#', '#', '.', '.', '#', '#', '.', '.', '#', '#', '.', '.' }
+            , aoc20221210.CRT.Take(40));
+    }
+
+    [Fact]
+    public void Part2WithCrt()
+    {
+        var aoc20221210 = new Aoc20221210(PuzzleInput());
+
+        var crtRows = new List<string>();
+
+        int r = 0;
+
+        var rowContent = string.Empty;
+
+        do
+        {
+            rowContent = new string(aoc20221210.CRT.Skip(r * 40).Take(40).ToArray());
+
+            if(!string.IsNullOrEmpty(rowContent))
+                crtRows.Add(rowContent);
+
+            r++;
+
+        } while (!string.IsNullOrEmpty(rowContent));
+
+        foreach (var item in crtRows)
+        {
+            output.WriteLine(item);
+        }
+        
+    }
+
+    private static string Example1Input()
     {
         return @"addx 15
 addx -11
