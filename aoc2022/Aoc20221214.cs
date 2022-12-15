@@ -1,8 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace aoc2022;
@@ -10,8 +6,6 @@ namespace aoc2022;
 public class Aoc20221214 : AocBase
 {
     private readonly IList<Match> _coordinates;
-
-    private bool _sandSet;
 
     public IReadOnlyList<Match> Coordinates => _coordinates.ToImmutableList();
 
@@ -22,9 +16,6 @@ public class Aoc20221214 : AocBase
 
     public Structure[,] Cave;
 
-
-    private readonly (int column, int row) _sandstart = (500, 0);
-
     public Aoc20221214(string rawInput)
         : base(rawInput)
     {
@@ -32,10 +23,10 @@ public class Aoc20221214 : AocBase
 
         _coordinates = coordinatesMatcher.Matches(rawInput).ToList();
 
-        MinColIndex = _coordinates.Select(m => int.Parse(m.Value.Split(',').First())).Min();
-        MaxColIndex = _coordinates.Select(m => int.Parse(m.Value.Split(',').First())).Max();
+        MinColIndex = 300; //_coordinates.Select(m => int.Parse(m.Value.Split(',').First())).Min();
+        MaxColIndex = 700; //_coordinates.Select(m => int.Parse(m.Value.Split(',').First())).Max();
 
-        MaxRowIndex = _coordinates.Select(m => int.Parse(m.Value.Split(',').Last())).Max();
+        MaxRowIndex = _coordinates.Select(m => int.Parse(m.Value.Split(',').Last())).Max() + 2;
 
 
 
@@ -44,13 +35,17 @@ public class Aoc20221214 : AocBase
         SetRocks();
 
         var dropToVoid = false;
-        var hasStopped = false;
         (int row, int column) grainPosition = (0, 500 - MinColIndex);
 
         do
         {
             grainPosition = (0, 500 - MinColIndex);
-            hasStopped = false;
+            var hasStopped = false;
+
+            if (Cave[0, 500 - MinColIndex].IsSand)
+            {
+                break;
+            }
 
             do
             {
@@ -175,6 +170,12 @@ public class Aoc20221214 : AocBase
                     }
                 }
             }
+        }
+
+        //Part 2
+        for (int i = 0; i < Cave.GetLength(1); i++)
+        {
+            Cave[MaxRowIndex, i].ToRock();
         }
     }
 

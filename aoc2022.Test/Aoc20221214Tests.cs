@@ -80,11 +80,6 @@ public class Aoc20221214Tests
 
             output.WriteLine(row);
         }
-
-        //Assert.True(aoc20221214.Cave[8, 5].IsSand);
-        //Assert.True(aoc20221214.Cave[8, 6].IsSand);
-        //Assert.True(aoc20221214.Cave[8, 7].IsSand);
-
     }
 
     [Fact]
@@ -122,6 +117,65 @@ public class Aoc20221214Tests
         }
 
         Assert.Equal(618, sandspots);
+    }
+
+    [Fact]
+    public void Part2Example()
+    {
+        var aoc20221214 = new Aoc20221214(Example1Input());
+
+        for (int i = 0; i < 12; i++)
+        {
+            var row = string.Empty;
+
+            for (int j = 0; j < 32; j++)
+            {
+                row += aoc20221214.Cave[i, j].IsAir
+                    ? '.'
+                    : aoc20221214.Cave[i, j].IsRock
+                        ? '#'
+                        : 'o';
+            }
+
+            output.WriteLine(row);
+        }
+    }
+
+    [Fact]
+    public void Part2Puzzle()
+    {
+        var aoc20221214 = new Aoc20221214(PuzzleInput());
+
+        for (int i = 0; i < aoc20221214.Cave.GetLength(0); i++)
+        {
+            var row = string.Empty;
+
+            for (int j = 0; j < aoc20221214.Cave.GetLength(1); j++)
+            {
+                row += aoc20221214.Cave[i, j].IsAir
+                    ? '.'
+                    : aoc20221214.Cave[i, j].IsRock
+                        ? '#'
+                        : 'o';
+            }
+
+            output.WriteLine(row);
+        }
+
+        var sandspots = 0;
+
+        for (int i = 0; i < aoc20221214.Cave.GetLength(0); i++)
+        {
+            for (int j = 0; j < aoc20221214.Cave.GetLength(1); j++)
+            {
+                if (aoc20221214.Cave[i, j].IsSand)
+                {
+                    sandspots++;
+                }
+            }
+        }
+
+        Assert.Equal(26358, sandspots);
     }
 
     private string Example1Input()
