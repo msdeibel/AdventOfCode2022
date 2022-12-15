@@ -7,12 +7,9 @@ public class Aoc20221210 : AocBase
     public int RegisterX { get; }
 
     private IList<char> _crt { get; }
-
     public IReadOnlyList<char> CRT => _crt.ToImmutableList();
 
-
     private readonly Dictionary<int, int> _cycle2RegisterValue;
-
     public IReadOnlyDictionary<int, int> Cycle2RegisterValue => _cycle2RegisterValue;
 
     public Aoc20221210(string rawInput)
@@ -22,15 +19,12 @@ public class Aoc20221210 : AocBase
         _crt = new List<char>();
         RegisterX = 1;
 
-        var q = new Queue<Operation>();
+        Operation op = null;
 
         var cycle = 0;
         var isAdding = false;
-        Operation op = null;
-
-        int instructionPointer = 0;
-
-        int spritePosition = 1;
+        var instructionPointer = 0;
+        var spritePosition = 1;
 
         do
         {
@@ -58,6 +52,7 @@ public class Aoc20221210 : AocBase
             }
             else
             {
+                // Complete addx Op
                 RegisterX += op.Value;
                 isAdding = false;
             }
