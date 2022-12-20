@@ -3,63 +3,63 @@
 public class Aoc20221220Tests
 {
 
-    [Fact]
-    public void ExampleItemsDetected()
-    {
-        var aoc20221220 = new Aoc20221220(Example1Input(),0);
+    //[Fact]
+    //public void ExampleItemsDetected()
+    //{
+    //    var aoc20221220 = new Aoc20221220(Example1Input(),0);
 
-        Assert.Equal(new []{(0,1), (1,2), (2,-3), (3,3), (4,-2), (5,0), (6,4)}, aoc20221220.InitialLayout);
-    }
+    //    Assert.Equal(new []{(0,1), (1,2), (2,-3), (3,3), (4,-2), (5,0), (6,4)}, aoc20221220.InitialLayout);
+    //}
 
-    [Fact]
-    public void ExampleMoves1()
-    {
-        var aoc20221220 = new Aoc20221220(Example1Input(), 1);
-        Assert.Equal(new[] { (1, 2), (0, 1), (2, -3), (3, 3), (4, -2), (5, 0), (6, 4) }, aoc20221220.InitialLayout);
+    //[Fact]
+    //public void ExampleMoves1()
+    //{
+    //    var aoc20221220 = new Aoc20221220(Example1Input(), 1);
+    //    Assert.Equal(new[] { (1, 2), (0, 1), (2, -3), (3, 3), (4, -2), (5, 0), (6, 4) }, aoc20221220.InitialLayout);
 
-    }
+    //}
 
-    [Fact]
-    public void ExampleMoves2()
-    {
-        var aoc20221220 = new Aoc20221220(Example1Input(), 2);
-        Assert.Equal(new[] { (0, 1), (2, -3), (1, 2), (3, 3), (4, -2), (5, 0), (6, 4) }, aoc20221220.InitialLayout);
-    }
+    //[Fact]
+    //public void ExampleMoves2()
+    //{
+    //    var aoc20221220 = new Aoc20221220(Example1Input(), 2);
+    //    Assert.Equal(new[] { (0, 1), (2, -3), (1, 2), (3, 3), (4, -2), (5, 0), (6, 4) }, aoc20221220.InitialLayout);
+    //}
 
-    [Fact]
-    public void ExampleMoves3()
-    {
-        var aoc20221220 = new Aoc20221220(Example1Input(), 3);
-        Assert.Equal(new[] { (0, 1), (1, 2), (3, 3), (4, -2), (2, -3), (5, 0), (6, 4) }, aoc20221220.InitialLayout);
-    }
+    //[Fact]
+    //public void ExampleMoves3()
+    //{
+    //    var aoc20221220 = new Aoc20221220(Example1Input(), 3);
+    //    Assert.Equal(new[] { (0, 1), (1, 2), (3, 3), (4, -2), (2, -3), (5, 0), (6, 4) }, aoc20221220.InitialLayout);
+    //}
 
-    [Fact]
-    public void ExampleMoves4()
-    {
-        var aoc20221220 = new Aoc20221220(Example1Input(), 4);
-        Assert.Equal(new[] { (0, 1), (1, 2), (4, -2), (2, -3), (5, 0), (3, 3), (6, 4) }, aoc20221220.InitialLayout);
-    }
+    //[Fact]
+    //public void ExampleMoves4()
+    //{
+    //    var aoc20221220 = new Aoc20221220(Example1Input(), 4);
+    //    Assert.Equal(new[] { (0, 1), (1, 2), (4, -2), (2, -3), (5, 0), (3, 3), (6, 4) }, aoc20221220.InitialLayout);
+    //}
 
-    [Fact]
-    public void ExampleMoves5()
-    {
-        var aoc20221220 = new Aoc20221220(Example1Input(), 5);
-        Assert.Equal(new[] { (0, 1), (1, 2), (2, -3), (5, 0), (3, 3), (6, 4), (4, -2) }, aoc20221220.InitialLayout);
-    }
+    //[Fact]
+    //public void ExampleMoves5()
+    //{
+    //    var aoc20221220 = new Aoc20221220(Example1Input(), 5);
+    //    Assert.Equal(new[] { (0, 1), (1, 2), (2, -3), (5, 0), (3, 3), (6, 4), (4, -2) }, aoc20221220.InitialLayout);
+    //}
 
-    [Fact]
-    public void ExampleMoves6()
-    {
-        var aoc20221220 = new Aoc20221220(Example1Input(), 6);
-        Assert.Equal(new[] { (0, 1), (1, 2), (2, -3), (5, 0), (3, 3), (6, 4), (4, -2) }, aoc20221220.InitialLayout);
-    }
+    //[Fact]
+    //public void ExampleMoves6()
+    //{
+    //    var aoc20221220 = new Aoc20221220(Example1Input(), 6);
+    //    Assert.Equal(new[] { (0, 1), (1, 2), (2, -3), (5, 0), (3, 3), (6, 4), (4, -2) }, aoc20221220.InitialLayout);
+    //}
 
-    [Fact]
-    public void ExampleMoves7()
-    {
-        var aoc20221220 = new Aoc20221220(Example1Input(), 7);
-        Assert.Equal(new[] { (0, 1), (1, 2), (2, -3), (6, 4), (5, 0), (3, 3), (4, -2) }, aoc20221220.InitialLayout);
-    }
+    //[Fact]
+    //public void ExampleMoves7()
+    //{
+    //    var aoc20221220 = new Aoc20221220(Example1Input(), 7);
+    //    Assert.Equal(new[] { (0, 1), (1, 2), (2, -3), (6, 4), (5, 0), (3, 3), (4, -2) }, aoc20221220.InitialLayout);
+    //}
 
     //[Fact]
     //public void ExampleAfter0()
@@ -102,10 +102,40 @@ public class Aoc20221220Tests
     }
 
     [Fact]
-    public void ExamplePart2Moves1()
+    public void ExamplePart2Moves7()
     {
-        var aoc20221220 = new Aoc20221220(Example1Input(), 1);
-        Assert.Equal(new[] { (1, 2), (0, 1), (2, -3), (3, 3), (4, -2), (5, 0), (6, 4) }, aoc20221220.InitialLayout);
+        var aoc20221220 = new Aoc20221220(Example1Input(), 7);
+
+        var zeroPosition = aoc20221220.InitialLayout.IndexOf(aoc20221220.InitialLayout.Single(s => s.value == 0));
+
+        var v1000 = aoc20221220.InitialLayout.ElementAt((1000 + zeroPosition) % 7).value;
+        var v2000 = aoc20221220.InitialLayout.ElementAt((2000 + zeroPosition) % 7).value;
+        var v3000 = aoc20221220.InitialLayout.ElementAt((3000 + zeroPosition) % 7).value;
+
+        Assert.Equal(811589153, v1000);
+        Assert.Equal(2434767459, v2000);
+        Assert.Equal(-1623178306, v3000);
+
+        Assert.Equal(1623178306, v1000 + v2000 + v3000);
+
+    }
+
+    [Fact]
+    public void PuzzlePart2Moves1()
+    {
+        var aoc20221220 = new Aoc20221220(PuzzleInput(), 10_000);
+
+        var zeroPosition = aoc20221220.InitialLayout.IndexOf(aoc20221220.InitialLayout.Single(s => s.value == 0));
+
+        var v1000 = aoc20221220.InitialLayout.ElementAt((1000 + zeroPosition) % 5_000).value;
+        var v2000 = aoc20221220.InitialLayout.ElementAt((2000 + zeroPosition) % 5_000).value;
+        var v3000 = aoc20221220.InitialLayout.ElementAt((3000 + zeroPosition) % 5_000).value;
+
+        Assert.Equal(2476970094956, v1000);
+        Assert.Equal(3367283395797, v2000);
+        Assert.Equal(3894004756094, v3000);
+
+        Assert.Equal(9738258246847, v1000 + v2000 + v3000);
 
     }
 
