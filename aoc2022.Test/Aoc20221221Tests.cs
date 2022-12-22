@@ -98,6 +98,22 @@ public class Aoc20221221Tests
         Assert.Equal(24947355373338, aoc20221221.Name2Monkey["root"].GetValue());
     }
 
+    [Fact]
+    public void ExamplePart2HumnValue()
+    {
+        var aoc20221221 = new Aoc20221221(Example1Input());
+
+        Assert.Equal(301, aoc20221221.Name2Monkey["humn"].GetValue());
+    }
+
+    [Fact]
+    public void PuzzlePart2HumnValue()
+    {
+        var aoc20221221 = new Aoc20221221(PuzzleInput());
+
+        Assert.Equal(1, aoc20221221.Name2Monkey["humn"].GetValue());
+    }
+
     private string Example1Input()
     {
         return @"root: pppw + sjmn
@@ -943,7 +959,7 @@ fdtt: 4
 vblv: 2
 slps: dhjm * hmnb
 vhqc: wwln + pfpd
-humn: 4905
+humn: 3876907167499
 nzbd: nsbc + zjzq
 vlbr: jmgj * tgmp
 fldp: scwt + bnvd

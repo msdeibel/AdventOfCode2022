@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.Design.Serialization;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace aoc2022;
@@ -16,6 +17,31 @@ public class Aoc20221221 : AocBase
         InitMokeys();
 
         BuildMonkeyTree();
+
+        long h = 10_000_000_001L;
+        long factor = 10_000_000_000;
+        long direction = 1; //1 ++; -1 --
+        long compareResult;
+        long previousCompareResult = -1;
+
+        do
+        {
+            _name2Monkey["humn"].SetValue(h);
+
+            compareResult = _name2Monkey["root"].GetValue();
+
+            if (compareResult != previousCompareResult)
+            {
+                direction *= -1;
+                factor = factor >= 10
+                    ? factor / 10
+                    : 1;
+            }
+
+            previousCompareResult = compareResult;
+            h += factor * direction;
+
+        } while (compareResult != 0);
     }
 
     private void BuildMonkeyTree()
@@ -105,6 +131,14 @@ public class Aoc20221221 : AocBase
 
         public long GetValue()
         {
+            if (Name == "root")
+            {
+                var lv = _leftMonkey.GetValue();
+                var rv = _rightMonkey.GetValue();
+
+                return lv.CompareTo(rv);
+            }
+
             if (!HasChildren)
             {
                 return _value.Value;
@@ -120,6 +154,11 @@ public class Aoc20221221 : AocBase
                 '*' => leftValue * rightValue,
                 _ => leftValue / rightValue
             };
+        }
+
+        internal void SetValue(long value)
+        {
+            _value = value;
         }
     }
 }
